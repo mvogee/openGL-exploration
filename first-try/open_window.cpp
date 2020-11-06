@@ -6,6 +6,15 @@
 
 // clang++ -std=c++11 -stdlib=libc++ -Wno-deprecated-declarations -lglfw -framework CoreVideo -framework OpenGL -framework IOKit -framework Cocoa -framework Carbon open_window.cpp
 
+static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods){
+  if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS) {
+    glfwSetWindowShouldClose(window, GLFW_TRUE);
+  }
+  else {
+    std::cout << (char)key << "key pressed\n";
+  }
+}
+
 int main(void)
 {
     GLFWwindow* window;
@@ -22,14 +31,16 @@ int main(void)
     int monitor_width, monitor_height;
     glfwGetMonitorPhysicalSize(glfwGetPrimaryMonitor(), &monitor_width, &monitor_height);
     std::cout << "height: " << monitor_height << " width: " << monitor_width << "\n";
+
     /* Create a windowed mode window and its OpenGL context */
-    window = glfwCreateWindow(monitor_width, monitor_height, "Hello World", NULL, NULL);
+    window = glfwCreateWindow(monitor_width, monitor_height, "First OpenGL", NULL, NULL);
     if (!window)
     {
         glfwTerminate();
         return -1;
     }
 
+    glfwSetKeyCallback(window, key_callback);
     /* Make the window's context current */
     glfwMakeContextCurrent(window);
 
@@ -48,6 +59,7 @@ int main(void)
     /* Loop until the user closes the window */
     while (!glfwWindowShouldClose(window))
     {
+
         /* Render here */
         glDrawArrays(GL_TRIANGLES, 0, 3);
 
