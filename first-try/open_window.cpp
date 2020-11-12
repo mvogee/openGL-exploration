@@ -2,8 +2,6 @@
 #include <GLFW/glfw3.h>
 #include <iostream>
 
-
-
 // clang++ -std=c++11 -stdlib=libc++ -Wno-deprecated-declarations -lglfw -framework CoreVideo -framework OpenGL -framework IOKit -framework Cocoa -framework Carbon open_window.cpp
 
 static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods){
@@ -22,6 +20,11 @@ int main(void)
     /* Initialize the library */
     if (!glfwInit())
         return -1;
+/*
+  glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+  glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
+  glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+  glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE); */
 
     int numberOfMonitors;
     GLFWmonitor**  monitors = glfwGetMonitors(&numberOfMonitors); // gets a list of your monitors
@@ -31,6 +34,8 @@ int main(void)
     int monitor_width, monitor_height;
     glfwGetMonitorPhysicalSize(glfwGetPrimaryMonitor(), &monitor_width, &monitor_height);
     std::cout << "height: " << monitor_height << " width: " << monitor_width << "\n";
+
+
 
     /* Create a windowed mode window and its OpenGL context */
     window = glfwCreateWindow(monitor_width, monitor_height, "First OpenGL", NULL, NULL);
